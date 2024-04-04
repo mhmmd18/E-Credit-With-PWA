@@ -7,15 +7,16 @@ use Illuminate\View\Component;
 class LogsTable extends Component
 {
     public $catatan;
+    public $totalCicilan;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($catatan)
+    public function __construct($catatan, $totalCicilan = null)
     {
         $this->catatan = $catatan;
-
+        $this->totalCicilan = $totalCicilan;
     }
 
     /**

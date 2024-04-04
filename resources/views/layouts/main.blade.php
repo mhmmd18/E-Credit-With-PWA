@@ -87,7 +87,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; E-Credit 2022</div>
+                        <div class="text-muted">Copyright &copy; E-Credit 2024</div>
                     </div>
                 </div>
             </footer>
@@ -119,7 +119,6 @@
             $('.select-multiple').select2();
         });
     </script>
-    {{-- @yield('chart'); --}}
     <script>
         $(document).ready(function() {
             var table = $('#table').DataTable({
@@ -156,6 +155,30 @@
             });
             table.buttons().container()
                 .appendTo('#table_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+    <script>
+        const idFormated = ['credit', 'debt'];
+        // Function to format number with thousand separators
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        // Function to remove non-numeric characters
+        function cleanNonNumericChars(value) {
+            return value.replace(/[^\d]/g, '');
+        }
+        // Function to update input value with formatted number
+        function updateFormattedValue(input) {
+            var cleanedValue = cleanNonNumericChars(input.value);
+            var formattedValue = formatNumberWithCommas(cleanedValue);
+            input.value = formattedValue;
+        }
+
+        // Event delegation
+        document.addEventListener('input', function(event) {
+            if (idFormated.includes(event.target.id)) {
+                updateFormattedValue(event.target);
+            }
         });
     </script>
 </body>

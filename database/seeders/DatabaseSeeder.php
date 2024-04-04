@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 // use App\Models\Customer;
+// use App\Models\Log;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -38,7 +39,8 @@ class DatabaseSeeder extends Seeder
             'username' => 'hamzia',
             'password' => bcrypt('hamzia'),
         ]);
-        // Customer::factory(1000)->create();
+        // Customer::factory(200)->create();
+        // Log::factory(200)->create();
         
     }
 }

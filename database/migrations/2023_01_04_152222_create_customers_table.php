@@ -20,9 +20,9 @@ return new class extends Migration
             $table->enum('gender', ['L', 'P']);
             $table->string('phone')->nullable();
             $table->enum('type', ['Harian', 'Mingguan', 'Bulanan']);
-            $table->string('debt');
+            $table->double('debt');
             $table->enum('status', ['Lunas', 'Belum Lunas'])->default('Belum Lunas');
-
+            $table->string('items')->nullable();
             $table->timestamps();
         });
     }

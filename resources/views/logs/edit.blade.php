@@ -3,19 +3,29 @@
 @section('content')
 
     <div class="mt-3">
-        <h6>Catatan / Edit</h6>
+        <!-- <h6>Catatan / Edit</h6> -->
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="card py-3 px-3">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="text-success">{{ $log->customer->name }}</h6>
-                        @if ($log->customer->status == 'Lunas')
-                            <div class="badge badge-sm bg-success">Hutang Lunas</div>
-                        @else
-                            <h6 class="text-danger">Rp. {{ number_format($log->current_debt, 0) }}</h6>
-                        @endif
+                    <div class="d-flex justify-content-center flex-column">
+                        <h6 class="py-2 bg-primary text-center text-white">Form Edit Catatan</h6>
+                        <h6 class="py-2 bg-warning text-center text-dark">Nasabah {{ $customer->type }}</h6>
                     </div>
                     <hr>
+                    @if (session()->has('failed'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('failed') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-white bg-success px-2 py-1 rounded rounded-md">{{ $customer->name }}</h6>
+                        @if ($current != null)
+                        <h6 class="text-white bg-danger px-2 py-1 rounded rounded-md">Rp. {{ str_replace(',', '.', number_format($customer->debt - $totalCicilan, 0)) }}</h6>
+                        @else
+                        <h6 class="text-white bg-success px-2 py-1 rounded rounded-md">Rp. {{ str_replace(',', '.', number_format($customer->debt, 0)) }}</h6>
+                        @endif
+                    </div>
                     <form action="/logs/{{ $log->id }}" method="post">
                         @csrf
                         @method('put')
@@ -29,7 +39,7 @@
                         </div>
                         <div class="mt-2">
                             <label for="credit" class="form-label">Jumlah Cicilan</label>
-                            <input type="number" name="credit" id="credit" placeholder="Masukkan Jumlah Cicilan"
+                            <input type="text" name="credit" id="credit" placeholder="Masukkan Jumlah Cicilan"
                                 class="form-control @error('credit') is-invalid @enderror"
                                 value="{{ old('credit', $log->credit) }}">
                             @error('credit')

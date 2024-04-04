@@ -2,7 +2,7 @@
 @section('title', 'Catatan')
 @section('content')
     <div class="mt-3">
-        <h6>Catatan / Index</h6>
+        <!-- <h6>Catatan / Index</h6> -->
         <div class="row">
             <div class="col-12 col-md-8">
                 @if (session()->has('success'))
@@ -19,10 +19,8 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        {{-- <a href="/logs/create" class="btn btn-sm btn-primary mb-3"><i
-                                class="fa-solid fa-plus me-2"></i>Tambah</a> --}}
-                        <p>Catatan Hari ini</p>
-                        <x-logs-table :catatan='$logs' />
+                        <p class="fw-bold">Catatan Hari Ini</p>
+                        <x-logs-table :catatan='$logs' :totalCicilan='$totalCicilan' />
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 @section('title', 'Nasabah Lunas')
 @section('content')
     <div class="mt-3">
-        <h6>Nasabah {{ $type == 'Harian' ? 'Harian ' : ($type == 'Mingguan' ? 'Mingguan ' : 'Bulanan ') }}/ Index </h6>
+        <h6>Nasabah {{ $type == 'Harian' ? 'Harian ' : ($type == 'Mingguan' ? 'Mingguan ' : 'Bulanan ') }}: <span class="badge bg-success text-white">Lunas</span></h6>
         <div class="row">
             <div class="col-12 col-md-10">
                 @if (session()->has('success'))
@@ -17,18 +17,18 @@
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
                                     <option value="" selected hidden>Pilih Alamat</option>
-                                    <option value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan
+                                    <option style="font-size: 12px" value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan
                                     </option>
-                                    <option value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan
+                                    <option style="font-size: 12px" value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan
                                     </option>
-                                    <option value="Lojok" {{ old('address') == 'Lojok' ? 'selected' : '' }}>Lojok</option>
-                                    <option value="Petung" {{ old('address') == 'Petung' ? 'selected' : '' }}>Petung
+                                    <option style="font-size: 12px" value="Lojok" {{ old('address') == 'Lojok' ? 'selected' : '' }}>Lojok</option>
+                                    <option style="font-size: 12px" value="Petung" {{ old('address') == 'Petung' ? 'selected' : '' }}>Petung
                                     </option>
-                                    <option value="Buaran" {{ old('address') == 'Buaran' ? 'selected' : '' }}>Buaran
+                                    <option style="font-size: 12px" value="Buaran" {{ old('address') == 'Buaran' ? 'selected' : '' }}>Buaran
                                     </option>
-                                    <option value="Lajuk" {{ old('address') == 'Lajuk' ? 'selected' : '' }}>Lajuk</option>
-                                    <option value="Jajar" {{ old('address') == 'Jajar' ? 'selected' : '' }}>Jajar</option>
-                                    <option value="Lainnya" {{ old('address') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                                    <option style="font-size: 12px" value="Lajuk" {{ old('address') == 'Lajuk' ? 'selected' : '' }}>Lajuk</option>
+                                    <option style="font-size: 12px" value="Jajar" {{ old('address') == 'Jajar' ? 'selected' : '' }}>Jajar</option>
+                                    <option style="font-size: 12px" value="Lainnya" {{ old('address') == 'Lainnya' ? 'selected' : '' }}>Lainnya
                                     </option>
                                 </select>
                             </div>
@@ -44,26 +44,21 @@
                     </form>
                     <div class="card-body">
                         <a href="/customers/list/{{ $type }}" class="btn btn-sm btn-secondary mb-3">Nasabah Belum Lunas</a>
-                        <table class="table">
+                        <table class="table table-secondary">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Name</th>
                                     <th>Alamat</th>
-                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($customers as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ ($customers->currentPage() - 1) * $customers->perPage() + $loop->index + 1 }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
-                                        <td>
-                                            <span
-                                                class="badge badge-sm {{ $item->status == 'Lunas' ? 'bg-success' : 'bg-danger' }}">{{ $item->status }}</span>
-                                        </td>
                                         <td>
                                             <a href="/customers/{{ $item->id }}" class="btn my-1 btn-sm btn-success"><i
                                                     class="fa-solid fa-eye"></i></a>

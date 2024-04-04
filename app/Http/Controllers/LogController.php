@@ -17,8 +17,10 @@ class LogController extends Controller
     public function index()
     {
         $logs = Log::latest()->with('customer')->where('date', Carbon::now()->toDateString())->paginate(5)->withQueryString();
+        $totalCicilan = Log::where('date', Carbon::now()->toDateString())->sum('credit');
         return view('logs.index', [
             'logs' => $logs,
+            'totalCicilan' => $totalCicilan
         ]);
     }
 
@@ -29,8 +31,6 @@ class LogController extends Controller
      */
     public function create()
     {
-        // $data = Log::where('customer_id', $request->customer_id)->latest()->first();
-        // dd($data->current_debt);
         $customers = Customer::where('status', 'Belum Lunas')->get();
         return view('logs.create', [
             'customers' => $customers,
@@ -45,66 +45,7 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'customer_id' => 'required',
-            'credit' => 'required',
-        ]);
-
-        $data = Log::where('customer_id', $request->customer_id)->latest()->first();
-        // dd(isset($data));
-        if (isset($data)) {
-            if ($data->current_debt < $request->credit) {
-                return redirect('/logs')->with('failed', 'Catatan gagal ditambah!');
-            } else {
-                if ($data->current_debt == $request->credit) {
-                    Customer::find($request->customer_id)->update([
-                        'status' => 'Lunas',
-                    ]);
-                    $sisa = $data->current_debt - $request->credit;
-                    Log::create([
-                        'customer_id' => $request->customer_id,
-                        'date' => Carbon::now()->toDateString(),
-                        'credit' => $request->credit,
-                        'current_debt' => $sisa,
-                    ]);
-                    return redirect('/logs')->with('success', 'Hutang Lunas!');
-                }
-                $sisa = $data->current_debt - $request->credit;
-                Log::create([
-                    'customer_id' => $request->customer_id,
-                    'date' => Carbon::now()->toDateString(),
-                    'credit' => $request->credit,
-                    'current_debt' => $sisa,
-                ]);
-                return redirect('/logs')->with('success', 'Catatan berhasil ditambah!');
-            }
-        } else {
-            // mngecek hutang < current
-            $customer = Customer::find($request->customer_id);
-            if ($request->credit > $customer->debt) {
-                return redirect('/logs')->with('failed', 'Catatan gagal ditambah!');
-            } else {
-                if ($customer->debt == $request->credit) {
-                    Customer::find($request->customer_id)->update([
-                        'status' => 'Lunas',
-                    ]);
-                    Log::create([
-                        'customer_id' => $request->customer_id,
-                        'date' => Carbon::now()->toDateString(),
-                        'credit' => $request->credit,
-                        'current_debt' => $customer->debt - $request->credit,
-                    ]);
-                    return redirect('/logs')->with('success', 'Hutang Lunas!');
-                }
-                Log::create([
-                    'customer_id' => $request->customer_id,
-                    'date' => Carbon::now()->toDateString(),
-                    'credit' => $request->credit,
-                    'current_debt' => $customer->debt - $request->credit,
-                ]);
-                return redirect('/logs')->with('success', 'Catatan berhasil ditambah!');
-            }
-        }
+        //
     }
 
     /**
@@ -126,8 +67,14 @@ class LogController extends Controller
      */
     public function edit(Log $log)
     {
+        $customer = Customer::where('id', $log->customer_id)->first();
+        $current = Log::where('customer_id', $customer->id)->latest()->first();
+        $totalCicilan = Log::where('customer_id', $customer->id)->sum('credit');
         return view('logs.edit', [
             'log' => $log,
+            'customer' => $customer,
+            'totalCicilan' => $totalCicilan,
+            'current' => $current
         ]);
     }
 
@@ -145,41 +92,42 @@ class LogController extends Controller
         ]);
         $data = Log::where('customer_id', $request->customer_id)->latest()->get();
         $ambilNasabah = Customer::where('id', $request->customer_id)->first();
-        // Jika bayar lebih besar dari sebelumnya
+        $request->credit = doubleval(str_replace('.', '', $request->credit));
+
+        $totalCredit = Log::where('customer_id', $request->customer_id)->sum('credit');
+        $jumlahHutang = Customer::find($request->customer_id)->debt;
+        $sisaHutang = $jumlahHutang - ($totalCredit - doubleval($log->credit));
+
         if (isset($data[1]->id)) {
-            if ($data[1]->current_debt < $request->credit) {
-                return redirect('/customers/' . $log->customer_id)->with('failed', 'Catatan gagal diubah!');
-            } else {
-                if ($data[1]->current_debt == $request->credit) {
-                    Customer::find($request->customer_id)->update([
-                        'status' => 'Lunas',
-                    ]);
-                    Log::find($log->id)->update([
-                        'credit' => $request->credit,
-                        'current_debt' => $data[1]->current_debt - $request->credit,
-                    ]);
-                    return redirect('/customers/' . $log->customer_id)->with('success', 'Hutang Lunas!');
-                } else if ($ambilNasabah->status == 'Lunas') {
-                    Customer::find($request->customer_id)->update([
-                        'status' => 'Belum Lunas',
-                    ]);
-                    Log::find($log->id)->update([
-                        'credit' => $request->credit,
-                        'current_debt' => $data[1]->current_debt - $request->credit,
-                    ]);
-                    return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil diubahh!');
-                }
+            if ($request->credit > $sisaHutang) {
+                return redirect('/customers/log/' . $log->customer_id . '/edit')->with('failed', 'Jumlah cicilan melebihi hutang!');
+            } elseif ($request->credit == $sisaHutang) {
+                Customer::find($request->customer_id)->update([
+                    'status' => 'Lunas',
+                ]);
                 Log::find($log->id)->update([
                     'credit' => $request->credit,
-                    'current_debt' => $data[1]->current_debt - $request->credit,
                 ]);
-                return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil diubah!');
+                return redirect('/customers/' . $log->customer_id)->with('success', 'Hutang Lunas!');
+            } elseif ($ambilNasabah->status == 'Lunas') {
+                // dd('dd2');
+                Customer::find($request->customer_id)->update([
+                    'status' => 'Belum Lunas',
+                ]);
+                Log::find($log->id)->update([
+                    'credit' => $request->credit,
+                ]);
+                return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan & Status berhasil diubah!');
+            } else {
+                Log::find($log->id)->update([
+                    'credit' => $request->credit,
+                ]);
+                return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan berhasil diubah!');
             }
         } else {
-            // mngecek hutang < current
             $customer = Customer::find($request->customer_id);
             if ($request->credit > $customer->debt) {
-                return redirect('/customers/' . $log->customer_id)->with('failed', 'Catatan gagal diubah!');
+                return redirect('/customers/log/' . $log->customer_id . '/edit')->with('failed', 'Jumlah cicilan melebihi hutang!');
             } else {
                 if ($customer->debt == $request->credit) {
                     Customer::find($request->customer_id)->update([
@@ -187,7 +135,6 @@ class LogController extends Controller
                     ]);
                     Log::find($log->id)->update([
                         'credit' => $request->credit,
-                        'current_debt' => $customer->debt - $request->credit,
                     ]);
                     return redirect('/customers/' . $log->customer_id)->with('success', 'Hutang Lunas!');
                 } else if ($ambilNasabah->status == 'Lunas') {
@@ -196,15 +143,13 @@ class LogController extends Controller
                     ]);
                     Log::find($log->id)->update([
                         'credit' => $request->credit,
-                        'current_debt' => $customer->debt - $request->credit,
                     ]);
-                    return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil diubahh!');
+                    return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan & Status berhasil diubah!');
                 }
                 Log::find($log->id)->update([
                     'credit' => $request->credit,
-                    'current_debt' => $customer->debt - $request->credit,
                 ]);
-                return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil diubah!');
+                return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan berhasil diubah!');
             }
         }
     }
@@ -220,22 +165,9 @@ class LogController extends Controller
         if ($log->customer->status == 'Lunas') {
             Customer::where('id', $log->customer_id)->update(['status' => 'Belum Lunas']);
             Log::destroy($log->id);
-            return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil di hapus!');
+            return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan berhasil dihapus!');
         }
         Log::destroy($log->id);
-        return redirect('/customers/' . $log->customer_id)->with('success', 'Catatan berhasil di hapus!');
+        return redirect('/customers/' . $log->customer_id)->with('success', 'Cicilan berhasil dihapus!');
     }
-    // public function soft()
-    // {
-    //     $logs = Log::onlyTrashed()->get();
-    //     // dd($logs);
-    //     return view('logs.delete', [
-    //         'logs' => $logs,
-    //     ]);
-    // }
-    // public function restore($id)
-    // {
-    //     $logs = Log::onlyTrashed()->where('id', $id)->restore();
-    //     return redirect('/logs')->with('success', 'Catatan berhasil dikembalikan!');
-    // }
 }

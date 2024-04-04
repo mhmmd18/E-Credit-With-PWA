@@ -24,6 +24,7 @@ class CustomerFactory extends Factory
             'type' => fake()->randomElement(['Harian', 'Mingguan', 'Bulanan']),
             'debt' => fake()->randomNumber(7, true),
             'status' => fake()->randomElement(['Lunas', 'Belum Lunas']),
+            'items' => fake()->name(),
         ];
 
     }

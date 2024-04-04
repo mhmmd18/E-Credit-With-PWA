@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id');
             $table->date('date');
-            $table->string('credit');
-            $table->string('current_debt')->nullable();
+            $table->double('credit');
             $table->timestamps();
         });
     }
