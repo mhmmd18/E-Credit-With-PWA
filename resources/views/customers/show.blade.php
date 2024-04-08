@@ -109,6 +109,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+                <form action="" class="col-12 col-md-6 py-2">
+                    <div class="input-group">
+                        <input type="date" name="date" class="form-control" placeholder="Masukkan Tanggal"
+                            aria-label="Recipient's date" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit"
+                            id="button-addon2">Search</button>
+                    </div>
+                </form>
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header bg-info text-black">

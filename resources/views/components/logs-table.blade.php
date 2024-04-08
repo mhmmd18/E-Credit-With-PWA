@@ -19,7 +19,7 @@
                     </td>
                     <td style="font-size: 14px;">{{ $item->customer->name }}</td>
                     @if (!Request::is('logs'))
-                        <td style="font-size: 14px;">{{ date('d-m-Y', strtotime($item->customer->created_at)) }}</td>
+                        <td style="font-size: 14px;">{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                     @endif
                     <td style="font-size: 12px;">{{ str_replace(',', '.', number_format($item->credit, 0)) }}</td>
                     <td>

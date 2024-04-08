@@ -5,12 +5,6 @@
         <h6>Nasabah {{ $type == 'Harian' ? 'Harian ' : ($type == 'Mingguan' ? 'Mingguan ' : 'Bulanan ') }}: <span class="badge bg-success text-white">Lunas</span></h6>
         <div class="row">
             <div class="col-12 col-md-10">
-                @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 <div class="card">
                     <form action="" class="mx-2">
                         <div class="row">
@@ -44,6 +38,12 @@
                     </form>
                     <div class="card-body">
                         <a href="/customers/list/{{ $type }}" class="btn btn-sm btn-secondary mb-3">Nasabah Belum Lunas</a>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <table class="table table-secondary">
                             <thead>
                                 <tr>

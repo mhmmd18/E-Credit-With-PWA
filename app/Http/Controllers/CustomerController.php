@@ -160,10 +160,42 @@ class CustomerController extends Controller
     //         'isPath' => $isPath
     //     ]);
     // }
-    public function show(Customer $customer)
+    // public function show(Customer $customer)
+    // {
+    //     $perPage = 5; // Jumlah item per halaman
+    //     $logs = Log::latest()->with('customer')->where('customer_id', $customer->id)->paginate($perPage)->withQueryString();
+
+    //     // Menghitung nomor urut pertama pada halaman saat ini
+    //     $startIndex = ($logs->firstItem() - 1);
+    //     // Menghitung nomor urut terakhir pada halaman saat ini
+    //     $endIndex = min($startIndex + $perPage - 1, $logs->total());
+    //     // Menentukan jalur paginasi
+    //     $isPath = '/customers/' . $customer->id . '?page=' . ceil($endIndex / $perPage);
+    //     $totalCicilan = Log::where('customer_id', $customer->id)->sum('credit');
+    //     return view('customers.show', [
+    //         'customer' => $customer,
+    //         'logs' => $logs,
+    //         'totalCicilan' => $totalCicilan,
+    //         'isPath' => $isPath
+    //     ]);
+    // }    
+    public function show(Customer $customer, Request $request)
     {
         $perPage = 5; // Jumlah item per halaman
-        $logs = Log::latest()->with('customer')->where('customer_id', $customer->id)->paginate($perPage)->withQueryString();
+
+        // Ambil tanggal pencarian dari request
+        $searchDate = $request->input('date');
+
+        // Query dasar untuk log yang terkait dengan pelanggan ini
+        $query = Log::latest()->with('customer')->where('customer_id', $customer->id);
+
+        // Jika terdapat pencarian berdasarkan tanggal
+        if ($searchDate) {
+            $query->whereDate('created_at', $searchDate);
+        }
+
+        // Ambil data log berdasarkan query yang telah dibuat
+        $logs = $query->paginate($perPage)->withQueryString();
 
         // Menghitung nomor urut pertama pada halaman saat ini
         $startIndex = ($logs->firstItem() - 1);
@@ -172,13 +204,15 @@ class CustomerController extends Controller
         // Menentukan jalur paginasi
         $isPath = '/customers/' . $customer->id . '?page=' . ceil($endIndex / $perPage);
         $totalCicilan = Log::where('customer_id', $customer->id)->sum('credit');
+
         return view('customers.show', [
             'customer' => $customer,
             'logs' => $logs,
             'totalCicilan' => $totalCicilan,
             'isPath' => $isPath
         ]);
-    }                                       
+    }
+                                   
     /**
      * Show the form for editing the specified resource.
      *

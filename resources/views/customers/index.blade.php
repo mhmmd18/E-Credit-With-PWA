@@ -5,18 +5,6 @@
         <h6>Nasabah {{ $type == 'Harian' ? 'Harian ' : ($type == 'Mingguan' ? 'Mingguan ' : 'Bulanan ') }} : <span class="badge bg-danger text-white">Belum Lunas</span></h6>
         <div class="row">
             <div class="col-12 col-md-10">
-                @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-                @if (session()->has('failed'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('failed') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 <div class="card">
                     <form action="" class="mx-2">
                         <div class="row">
@@ -47,6 +35,18 @@
                         <a href="/customers/create" class="btn btn-sm btn-primary mb-3"><i
                                 class="fa-solid fa-plus me-2"></i>Tambah</a>
                         <a href="/customers/list/{{ $type }}/lunas" class="btn btn-sm btn-secondary mb-3">Nasabah Lunas</a>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                        @if (session()->has('failed'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('failed') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <table class="table table-secondary">
                             <thead>
                                 <tr>
@@ -63,7 +63,10 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>
-                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
+                                            <!-- <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
+                                                <i class="fa-solid fa-money-bill"></i>
+                                            </a> -->
+                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary">
                                                 <i class="fa-solid fa-money-bill"></i>
                                             </a>
                                             <a href="/customers/{{ $item->id }}" class="btn my-1 btn-sm btn-success">
