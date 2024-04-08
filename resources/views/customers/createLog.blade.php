@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Create Catatan')
+@section('title', 'Tambah Catatan')
 @section('content')
 
     <div class="mt-3">

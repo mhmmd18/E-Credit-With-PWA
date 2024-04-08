@@ -109,19 +109,17 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <form action="" class="col-12 col-md-6 py-2">
-                    <div class="input-group">
-                        <input type="date" name="date" class="form-control" placeholder="Masukkan Tanggal"
-                            aria-label="Recipient's date" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="submit"
-                            id="button-addon2">Search</button>
-                    </div>
-                </form>
                 <div class="card">
                     <div class="card-body">
                         <div class="card-header bg-info text-black">
                             Detail Catatan : <span class="badge bg-light text-dark">{{ $customer->name }}</span>
                         </div>
+                        <form action="" class="col-12 col-md-6 py-2">
+                            <div class="input-group">
+                                <input type="date" name="date" class="form-control" aria-label="Recipient's date" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                            </div>
+                        </form>   
                         <x-logs-table :catatan='$logs' :totalCicilan='$totalCicilan' />
                         <a href="{{ $customer->type == 'Harian' && $customer->status == 'Belum Lunas' ? '/customers/list/Harian' : ($customer->type == 'Harian' && $customer->status == 'Lunas' ? '/customers/list/Harian/lunas' : ($customer->type == 'Mingguan' && $customer->status == 'Belum Lunas' ? '/customers/list/Mingguan' : ($customer->type == 'Mingguan' && $customer->status == 'Lunas' ? '/customers/list/Mingguan/lunas' : ($customer->type == 'Bulanan' && $customer->status == 'Belum Lunas' ? '/customers/list/Bulanan' : '/customers/list/Bulanan/lunas')))) }}" class="btn btn-sm btn-primary">Kembali</a>
                     </div>

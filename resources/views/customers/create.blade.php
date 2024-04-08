@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Create Nasabah')
+@section('title', 'Tambah Nasabah')
 @section('content')
     <div class="mt-3">
         <!-- <h6>Nasabah / Create</h6> -->
@@ -68,7 +68,7 @@
                             <label for="type" class="form-label">Tipe</label>
                             <select name="type" id="type" class="form-control @error('type') is-invalid @enderror"
                                 required>
-                                <option value="" selected hidden>-- Pilih Tipe --</option>
+                                <option value="" selected hidden>-- Pilih Tipe Cicilan --</option>
                                 <option style="font-size: 12px" value="Harian" {{ old('type') == 'Harian' ? 'selected' : '' }}>Harian</option>
                                 <option style="font-size: 12px" value="Mingguan" {{ old('type') == 'Mingguan' ? 'selected' : '' }}>Mingguan</option>
                                 <option style="font-size: 12px" value="Bulanan" {{ old('type') == 'Bulanan' ? 'selected' : '' }}>Bulanan</option>
@@ -89,7 +89,7 @@
                         </div>
                         <div>
                             <label for="items" class="form-label">Barang</label>
-                            <input type="text" name="items" id="items" placeholder="Masukkan Nama barang"
+                            <input type="text" name="items" id="items" placeholder="Masukkan Nama Barang"
                                 class="form-control @error('items') is-invalid @enderror" value="{{ old('items') }}">
                             @error('items')
                                 <div class="invalid-feedback">{{ $message }}</div>

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Catatan')
+@section('title', 'Catatan Hari Ini')
 @section('content')
     <div class="mt-3">
         <!-- <h6>Catatan / Index</h6> -->

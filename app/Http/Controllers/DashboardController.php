@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Log;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class DashboardController extends Controller
         $bulananLunas = Customer::where('type', 'Bulanan')->where('status', 'Lunas')->count();
         $bulananBelumLunas = Customer::where('type', 'Bulanan')->where('status', 'Belum Lunas')->count();
         $penghasilan = Log::where('date', Carbon::now()->toDateString())->sum('credit');
+        $user = User::where('role_id', 2)->count();
 
         return view('dashboard', [
             'harianLunas' => $harianLunas,
@@ -28,6 +30,7 @@ class DashboardController extends Controller
             'bulananLunas' => $bulananLunas,
             'bulananBelumLunas' => $bulananBelumLunas,
             'penghasilan' => $penghasilan,
+            'user' => $user
         ]);
     }
 }

@@ -1,12 +1,11 @@
 @extends('layouts.main')
-@section('title', 'Create User')
+@section('title', 'Tambah Pengguna')
 @section('content')
     <div class="mt-3">
-        <h6>Users / Create</h6>
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="card py-3 px-3">
-                    <p>Form Tambah User</p>
+                <h6 class="py-3 bg-primary text-center text-white">Form Tambah User</h6>
                     <form action="/users" method="post">
                         @csrf
                         <div>

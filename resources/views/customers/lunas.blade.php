@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
-                                    <option value="" selected hidden>Pilih Alamat</option>
+                                    <option value="" selected hidden>-- Pilih Alamat --</option>
                                     <option style="font-size: 12px" value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan
                                     </option>
                                     <option style="font-size: 12px" value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan

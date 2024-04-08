@@ -14,44 +14,6 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index(Request $request)
-    // {
-    //     $customers = Customer::latest();
-    //     if ($request->address || $request->type || $request->name) {
-    //         $customers->where('address', 'LIKE', '%' . $request->address . '%')
-    //             ->where('type', 'LIKE', '%' . $request->type . '%')
-    //             ->where('name', 'LIKE', '%' . $request->name . '%');
-    //     }
-    //     return view('customers.index', [
-    //         'customers' => $customers->paginate(5)->withQueryString(),
-    //     ]);
-    // }
-    // public function pending(Request $request, $type)
-    // {
-    //     $paymentInfo = [];
-    //     $customers = Customer::latest()->where('type', $type)->where('status', 'Belum Lunas');
-        
-    //     if ($request->address || $request->name) {
-    //         $customers->where('address', 'LIKE', '%' . $request->address . '%')
-    //         ->where('name', 'LIKE', '%' . $request->name . '%');
-    //     }
-    //     // $customers = $customers->paginate(5)->withQueryString()->appends(request()->query());
-    //     $page = ($customers->currentPage() - 1) * $customers->perPage() + 1;
-    //     $customers = $customers->paginate(5)->withQueryString()->withPath('/customers')->setPageName('page')->appends(request()->query());
-    //     $customers->setPath('/customers?page=' . $page);
-    //     // Memeriksa apakah pembayaran telah dilakukan untuk setiap pelanggan
-    //     foreach ($customers as $customer) {
-    //         $isPay = Log::where('date', Carbon::now()->toDateString())
-    //                 ->where('customer_id', $customer->id)
-    //                 ->exists();
-    //         $paymentInfo[$customer->id] = $isPay;
-    //     }   
-    //     return view('customers.index', [
-    //         'customers' => $customers,
-    //         'type' => $type,
-    //         'paymentInfo' => $paymentInfo
-    //     ]);
-    // }
     public function pending(Request $request, $type)
     {
         $paymentInfo = [];
@@ -147,45 +109,12 @@ class CustomerController extends Controller
      *
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
-     */
-    // public function show(Customer $customer)
-    // {
-    //     $logs = Log::latest()->with('customer')->where('customer_id', $customer->id)->paginate(5)->withQueryString();
-    //     $totalCicilan = Log::where('customer_id', $customer->id)->sum('credit');
-    //     $isPath = '/customers/' . $customer->id;
-    //     return view('customers.show', [
-    //         'customer' => $customer,
-    //         'logs' => $logs,
-    //         'totalCicilan' => $totalCicilan,
-    //         'isPath' => $isPath
-    //     ]);
-    // }
-    // public function show(Customer $customer)
-    // {
-    //     $perPage = 5; // Jumlah item per halaman
-    //     $logs = Log::latest()->with('customer')->where('customer_id', $customer->id)->paginate($perPage)->withQueryString();
-
-    //     // Menghitung nomor urut pertama pada halaman saat ini
-    //     $startIndex = ($logs->firstItem() - 1);
-    //     // Menghitung nomor urut terakhir pada halaman saat ini
-    //     $endIndex = min($startIndex + $perPage - 1, $logs->total());
-    //     // Menentukan jalur paginasi
-    //     $isPath = '/customers/' . $customer->id . '?page=' . ceil($endIndex / $perPage);
-    //     $totalCicilan = Log::where('customer_id', $customer->id)->sum('credit');
-    //     return view('customers.show', [
-    //         'customer' => $customer,
-    //         'logs' => $logs,
-    //         'totalCicilan' => $totalCicilan,
-    //         'isPath' => $isPath
-    //     ]);
-    // }    
+     */ 
     public function show(Customer $customer, Request $request)
     {
         $perPage = 5; // Jumlah item per halaman
-
         // Ambil tanggal pencarian dari request
         $searchDate = $request->input('date');
-
         // Query dasar untuk log yang terkait dengan pelanggan ini
         $query = Log::latest()->with('customer')->where('customer_id', $customer->id);
 
@@ -196,7 +125,6 @@ class CustomerController extends Controller
 
         // Ambil data log berdasarkan query yang telah dibuat
         $logs = $query->paginate($perPage)->withQueryString();
-
         // Menghitung nomor urut pertama pada halaman saat ini
         $startIndex = ($logs->firstItem() - 1);
         // Menghitung nomor urut terakhir pada halaman saat ini

@@ -1,8 +1,8 @@
 @extends('layouts.main')
-@section('title', 'Users')
+@section('title', 'Data Pengguna')
 @section('content')
     <div class="mt-3">
-        <h6>Users / Index</h6>
+        <h6>Data User</h6>
         <div class="row">
             <div class="col-12 col-md-6">
                 @if (session()->has('success'))

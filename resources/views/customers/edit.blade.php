@@ -72,7 +72,7 @@
                             <label for="type" class="form-label">Tipe</label>
                             <select name="type" id="type"
                                 class="form-control @error('type') is-invalid @enderror" required>
-                                <option value="" selected hidden>-- Pilih Tipe --</option>
+                                <option value="" selected hidden>-- Pilih Tipe Cicilan --</option>
                                 <option style="font-size: 12px" value="Harian" {{ old('type', $customer->type) == 'Harian' ? "selected" : "" }}>Harian</option>
                                 <option style="font-size: 12px" value="Mingguan" {{ old('type', $customer->type) == 'Mingguan' ? "selected" : "" }}>Mingguan</option>
                                 <option style="font-size: 12px" value="Bulanan" {{ old('type', $customer->type) == 'Bulanan' ? "selected" : "" }}>Bulanan</option>
