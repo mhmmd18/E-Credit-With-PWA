@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 col-md-10">
                 <div class="card">
-                    <form action="" class="mx-2">
+                    <!-- <form action="" class="mx-2">
                         <div class="row">
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                     <div class="card-body">
                         <a href="/customers/list/{{ $type }}" class="btn btn-sm btn-secondary mb-3">Nasabah Belum Lunas</a>
                         @if (session()->has('success'))
@@ -44,11 +44,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        <table class="table table-secondary">
+                        <table class="table table-secondary" id="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Aksi</th>
                                 </tr>

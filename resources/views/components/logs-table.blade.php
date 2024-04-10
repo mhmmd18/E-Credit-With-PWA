@@ -3,9 +3,9 @@
         <thead>
             <tr style="font-size: 16px;">
                 <th>No.</th>
-                <th>Name</th>
+                <th>Nama</th>
                 @if (!Request::is('logs'))
-                    <th>Tangal</th>
+                    <th>Tanggal</th>
                 @endif
                 <th>Bayar</th>
                 <th>Aksi</th>

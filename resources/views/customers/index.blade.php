@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 col-md-10">
                 <div class="card">
-                    <form action="" class="mx-2">
+                    <!-- <form action="" class="mx-2">
                         <div class="row">
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                     <div class="card-body">
                         <a href="/customers/create" class="btn btn-sm btn-primary mb-3"><i
                                 class="fa-solid fa-plus me-2"></i>Tambah</a>
@@ -47,11 +47,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
-                        <table class="table table-secondary">
+                        <table class="table table-secondary" id="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -63,12 +63,12 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>
-                                            <!-- <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
-                                                <i class="fa-solid fa-money-bill"></i>
-                                            </a> -->
-                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary">
+                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
                                                 <i class="fa-solid fa-money-bill"></i>
                                             </a>
+                                            <!-- <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary">
+                                                <i class="fa-solid fa-money-bill"></i>
+                                            </a> -->
                                             <a href="/customers/{{ $item->id }}" class="btn my-1 btn-sm btn-success">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
