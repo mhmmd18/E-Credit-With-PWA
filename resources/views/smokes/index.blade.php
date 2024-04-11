@@ -8,11 +8,11 @@
                 <div class="card">
                     <form action="" class="mx-3">
                         <div class="row">
-                            <div class="col-4 col-md-6 pt-2">
+                            <div class="col-12 col-md-6 pt-2">
                                 <a href="/smokes/create" class="btn btn-sm btn-primary">
                                     <i class="fa-solid fa-plus me-2"></i>Tambah</a>
                             </div>
-                            <div class="col-8 col-md-6 pt-2">
+                            <div class="col-12 col-md-6 pt-2">
                                 <div class="input-group">
                                     <input type="text" name="name" class="form-control" placeholder="Masukkan Nama"
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -93,7 +93,11 @@
                                         <th>Harga Ecer</th>
                                         <td>:</td>
                                         <td>
-                                        Rp. {{ str_replace(',', '.', number_format($item->unit_price, 0)) }}
+                                            @if ($item->unit_price != null)
+                                            Rp. {{ str_replace(',', '.', number_format($item->unit_price, 0)) }}
+                                            @else
+                                            -
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>

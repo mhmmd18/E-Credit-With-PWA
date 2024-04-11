@@ -61,13 +61,18 @@ class SmokeController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:smokes',
-            'unit_price' => 'required',
+            // 'unit_price' => 'max:255',
             'price' => 'required',
         ]);
-        $request['unit_price'] = str_replace('.', '', $request->unit_price);
         $request['price'] = str_replace('.', '', $request->price);
-        Smoke::create($request->all());
 
+        if ($request->unit_price != null) {
+            $request['unit_price'] = str_replace('.', '', $request->unit_price);
+        }else{
+            $request['unit_price'] = 0;
+        }
+
+        Smoke::create($request->all());
         return redirect('/smokes')->with('success', 'Data rokok berhasil ditambah!');
     }
 
@@ -105,11 +110,17 @@ class SmokeController extends Controller
     public function update(Request $request, Smoke $smoke)
     {
         $rules = [
-            'unit_price' => 'required',
+            // 'unit_price' => 'max:255',
             'price' => 'required',
         ];
-        $request['unit_price'] = str_replace('.', '', $request->unit_price);
         $request['price'] = str_replace('.', '', $request->price);
+
+        if ($request->unit_price != null) {
+            $request['unit_price'] = str_replace('.', '', $request->unit_price);
+        }else{
+            $request['unit_price'] = 0;
+        }
+
         if ($request->name != $smoke->name) {
             $rules['name'] = 'required|unique:smokes';
         }

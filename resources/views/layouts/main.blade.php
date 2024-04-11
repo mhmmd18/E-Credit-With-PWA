@@ -77,7 +77,7 @@
                                 data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
                                 aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Data Pelanggan
+                                Data Pembeli
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
@@ -197,10 +197,19 @@
                 if (smokeId && type && qty) {
                     var unitPrice = getUnitPrice(smokeId, type);
 
-                    if (unitPrice) {
+                    if (unitPrice !== null) {
+                    // Jika unitPrice tidak null dan bukan 0
                         var total = qty * unitPrice;
+                        if (unitPrice === 0) {
+                            total = 0; // Jika unitPrice adalah 0, total diatur menjadi 0
+                        }
                         $('#total').val(formatNumber(total));
                     }
+
+                    // if (unitPrice) {
+                    //     var total = qty * unitPrice;
+                    //     $('#total').val(formatNumber(total));
+                    // }
                 }
             }
 

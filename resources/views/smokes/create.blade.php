@@ -19,7 +19,7 @@
                         <div class="mt-2">
                             <label for="unit_price" class="form-label">Harga Ecer</label>
                             <input type="text" name="unit_price" id="unit_price" placeholder="Masukkan Harga Ecer"
-                                class="form-control @error('unit_price') is-invalid @enderror" value="{{ old('unit_price') }}" required>
+                                class="form-control @error('unit_price') is-invalid @enderror" value="{{ old('unit_price') }}">
                             @error('unit_price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
