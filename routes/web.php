@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SmokeController;
+use App\Http\Controllers\BuyerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/customers/log', [CustomerController::class, 'storeLog']);
     
         Route::resource('/logs', LogController::class);
+        Route::resource('/smokes', SmokeController::class);
+        Route::resource('/buyers', BuyerController::class);
+        Route::get('/buyers/list/{type}', [BuyerController::class, 'pending']);
+        Route::get('/buyers/list/{type}/lunas', [BuyerController::class, 'lunas']);
+        Route::put('/buyers/confirm/{buyer:id}', [BuyerController::class, 'confirm']);
+        Route::get('/reports', [BuyerController::class, 'reports']);
+
     });
 });
 

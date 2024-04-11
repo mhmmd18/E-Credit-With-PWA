@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 col-md-10">
                 <div class="card">
-                    <!-- <form action="" class="mx-2">
+                    <form action="" class="mx-2">
                         <div class="row">
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
@@ -31,11 +31,11 @@
                                     <input type="text" name="name" class="form-control" placeholder="Masukkan Nama"
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <button class="btn btn-outline-secondary" type="submit"
-                                        id="button-addon2">Search</button>
+                                        id="button-addon2">Cari</button>
                                 </div>
                             </div>
                         </div>
-                    </form> -->
+                    </form>
                     <div class="card-body">
                         <a href="/customers/list/{{ $type }}" class="btn btn-sm btn-secondary mb-3">Nasabah Belum Lunas</a>
                         @if (session()->has('success'))

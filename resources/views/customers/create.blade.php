@@ -18,7 +18,7 @@
                             @enderror
                         </div>
                         <div class="mt-2">
-                            <label for="password" class="form-label d-block">Jenis Kelamin</label>
+                            <label class="form-label d-block">Jenis Kelamin</label>
                             <div class="form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="laki-laki" value="L"
                                     {{ old('gender') == 'L' ? 'checked' : '' }}>

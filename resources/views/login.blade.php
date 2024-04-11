@@ -66,7 +66,7 @@
                     @csrf
                     <div class="text-center p-2">
                         <h5 class="mt-2 mb-1 fw-bold">Login</h5>
-                        <span class="sipp my-auto d-block bg-light">E-Credit</span>
+                        <span class="sipp my-auto d-block bg-light">Apps</span>
                     </div>
                     <div class="form-floating wrap-input100 validate-input" data-validate="Enter username">
                         <input class="input100 @error('username') is-invalid @enderror" type="text" name="username"

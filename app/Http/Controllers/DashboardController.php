@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Log;
+use App\Models\Smoke;
+use App\Models\Buyer;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,6 +23,12 @@ class DashboardController extends Controller
         $bulananBelumLunas = Customer::where('type', 'Bulanan')->where('status', 'Belum Lunas')->count();
         $penghasilan = Log::where('date', Carbon::now()->toDateString())->sum('credit');
         $user = User::where('role_id', 2)->count();
+        $rokok = Smoke::count();
+        $eceranBelumLunas = Buyer::where('type', 'Eceran')->where('status', 'Belum Lunas')->count();
+        $eceranLunas = Buyer::where('type', 'Eceran')->where('status', 'Lunas')->count();
+        $bungkusanBelumLunas = Buyer::where('type', 'Bungkusan')->where('status', 'Belum Lunas')->count();
+        $bungkusanLunas = Buyer::where('type', 'Bungkusan')->where('status', 'Lunas')->count();
+        $totalHutang = Buyer::where('status', 'Belum Lunas')->sum('total');
 
         return view('dashboard', [
             'harianLunas' => $harianLunas,
@@ -30,7 +38,13 @@ class DashboardController extends Controller
             'bulananLunas' => $bulananLunas,
             'bulananBelumLunas' => $bulananBelumLunas,
             'penghasilan' => $penghasilan,
-            'user' => $user
+            'user' => $user,
+            'rokok' => $rokok,
+            'eceranBelumLunas' => $eceranBelumLunas,
+            'eceranLunas' => $eceranLunas,
+            'bungkusanBelumLunas' => $bungkusanBelumLunas,
+            'bungkusanLunas' => $bungkusanLunas,
+            'totalHutang' => $totalHutang
         ]);
     }
 }

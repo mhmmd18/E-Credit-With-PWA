@@ -23,7 +23,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="#">E-Credit</a>
+        <a class="navbar-brand ps-3" href="#">Apps</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 ms-auto" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -48,7 +48,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Users
                             </a>
-                        @else
+                        @elseif (Auth::user()->role_id == 2 && Auth::user()->username == 'hamzia')
                             <a class="nav-link {{ Request::is('customers*') ? 'active' : '' }} collapsed" href="#"
                                 data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
                                 aria-controls="collapseLayouts">
@@ -67,6 +67,29 @@
                             <a class="nav-link {{ Request::is('logs*') ? 'active' : '' }}" href="/logs">
                                 <div class="sb-nav-link-icon"><i class="fas fa-clock-rotate-left"></i></div>
                                 Catatan
+                            </a>
+                        @else
+                            <a class="nav-link {{ Request::is('smokes*') ? 'active' : '' }}" href="/smokes">
+                                <div class="sb-nav-link-icon"><i class="fas fa-joint"></i></div>
+                                Data Rokok
+                            </a>
+                            <a class="nav-link {{ Request::is('buyers*') ? 'active' : '' }} collapsed" href="#"
+                                data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false"
+                                aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Data Pelanggan
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/buyers/list/Eceran">Eceran</a>
+                                    <a class="nav-link" href="/buyers/list/Bungkusan">Bungkusan</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link {{ Request::is('reports*') ? 'active' : '' }}" href="/reports">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Report
                             </a>
                         @endif
                         <a class="nav-link" href="/logout">
@@ -112,36 +135,32 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            $('.select-multiple').select2();
-        });
-    </script> -->
     <script>
         $(document).ready(function() {
             $('#table').DataTable({
                 "sScrollY": ($(window).height() - 430),
                 responsive: true,
                 lengthChange: false,
+                paging: false,
+                searching: false,
                 language: {
                     emptyTable: "Data tidak tersedia",
-                    info: "_START_ sampai _END_ dari _TOTAL_ total data",
-                    search: "Cari:",
+                    info: "",
                     loadingRecords: "Tunggu sebentar...",
                     processing: "Memproses...",
-                    paginate: {
-                        "first": "First",
-                        "last": "Last",
-                        "next": ">",
-                        "previous": "<"
-                    },
+                    // search: "Cari:",
+                    // paginate: {
+                    //     "first": "First",
+                    //     "last": "Last",
+                    //     "next": ">",
+                    //     "previous": "<"
+                    // },
                 }
             });
         });
     </script>
     <script>
-        const idFormated = ['credit', 'debt'];
+        const idFormated = ['credit', 'debt', 'unit_price', 'price'];
         // Function to format number with thousand separators
         function formatNumberWithCommas(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -161,6 +180,44 @@
         document.addEventListener('input', function(event) {
             if (idFormated.includes(event.target.id)) {
                 updateFormattedValue(event.target);
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#smoke_id, input[name="type"], #qty').on('change keyup', function() {
+                calculateTotal();
+            });
+
+            function calculateTotal() {
+                var smokeId = $('#smoke_id').val();
+                var type = $('input[name="type"]:checked').val();
+                var qty = $('#qty').val();
+
+                if (smokeId && type && qty) {
+                    var unitPrice = getUnitPrice(smokeId, type);
+
+                    if (unitPrice) {
+                        var total = qty * unitPrice;
+                        $('#total').val(formatNumber(total));
+                    }
+                }
+            }
+
+            function getUnitPrice(smokeId, type) {
+                var option = $('#smoke_id option[value="' + smokeId + '"]');
+                if (option.length > 0) {
+                    if (type === 'Eceran') {
+                        return option.data('unit-price');
+                    } else if (type === 'Bungkusan') {
+                        return option.data('package-price');
+                    }
+                }
+                return null;
+            }
+
+            function formatNumber(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
         });
     </script>

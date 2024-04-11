@@ -117,7 +117,7 @@
                         <form action="" class="col-12 col-md-6 py-2">
                             <div class="input-group">
                                 <input type="date" name="date" class="form-control" aria-label="Recipient's date" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Cari</button>
                             </div>
                         </form>   
                         <x-logs-table :catatan='$logs' :totalCicilan='$totalCicilan' />
