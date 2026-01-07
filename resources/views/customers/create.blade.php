@@ -18,7 +18,7 @@
                             @enderror
                         </div>
                         <div class="mt-2">
-                            <label class="form-label d-block">Jenis Kelamin</label>
+                            <label for="password" class="form-label d-block">Jenis Kelamin</label>
                             <div class="form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="laki-laki" value="L"
                                     {{ old('gender') == 'L' ? 'checked' : '' }}>
@@ -41,13 +41,17 @@
                             <label for="address" class="form-label">Alamat</label>
                             <select name="address" id="address" class="form-control @error('address') is-invalid @enderror" required>
                                 <option value="" selected hidden>-- Pilih Alamat --</option>
-                                <option style="font-size: 12px" value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan</option>
-                                <option style="font-size: 12px" value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan</option>
-                                <option style="font-size: 12px" value="Lojok" {{ old('address') == 'Lojok' ? 'selected' : '' }}>Lojok</option>
                                 <option style="font-size: 12px" value="Petung" {{ old('address') == 'Petung' ? 'selected' : '' }}>Petung</option>
                                 <option style="font-size: 12px" value="Buaran" {{ old('address') == 'Buaran' ? 'selected' : '' }}>Buaran</option>
+                                <option style="font-size: 12px" value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan</option>
+                                <option style="font-size: 12px" value="Lojok" {{ old('address') == 'Lojok' ? 'selected' : '' }}>Lojok</option>
+                                <option style="font-size: 12px" value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan</option>
                                 <option style="font-size: 12px" value="Lajuk" {{ old('address') == 'Lajuk' ? 'selected' : '' }}>Lajuk</option>
                                 <option style="font-size: 12px" value="Jajar" {{ old('address') == 'Jajar' ? 'selected' : '' }}>Jajar</option>
+                                <option style="font-size: 12px" value="Wirogunan" {{ old('address') == 'Wirogunan' ? 'selected' : '' }}>Wirogunan</option>
+                                <option style="font-size: 12px" value="Tegal Bero" {{ old('address') == 'Tegal Bero' ? 'selected' : '' }}>Tegal Bero</option>
+                                <option style="font-size: 12px" value="Doro Payung" {{ old('address') == 'Doro Payung' ? 'selected' : '' }}>Doro Payung</option>
+                                <option style="font-size: 12px" value="Bandaran" {{ old('address') == 'Bandaran' ? 'selected' : '' }}>Bandaran</option>
                                 <option style="font-size: 12px" value="Lainnya" {{ old('address') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
                             @error('address')

@@ -11,13 +11,17 @@
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
                                     <option value="" selected hidden>-- Pilih Alamat --</option>
-                                    <option style="font-size: 12px" value="Bakalan">Bakalan</option>
-                                    <option style="font-size: 12px" value="Babatan">Babatan</option>
-                                    <option style="font-size: 12px" value="Lojok">Lojok</option>
                                     <option style="font-size: 12px" value="Petung">Petung</option>
                                     <option style="font-size: 12px" value="Buaran">Buaran</option>
+                                    <option style="font-size: 12px" value="Bakalan">Bakalan</option>
+                                    <option style="font-size: 12px" value="Lojok">Lojok</option>
+                                    <option style="font-size: 12px" value="Babatan">Babatan</option>
                                     <option style="font-size: 12px" value="Lajuk">Lajuk</option>
                                     <option style="font-size: 12px" value="Jajar">Jajar</option>
+                                    <option style="font-size: 12px" value="Wirogunan">Wirogunan</option>
+                                    <option style="font-size: 12px" value="Tegal Bero">Tegal Bero</option>
+                                    <option style="font-size: 12px" value="Doro Payung">Doro Payung</option>
+                                    <option style="font-size: 12px" value="Bandaran">Bandaran</option>
                                     <option style="font-size: 12px" value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
@@ -26,7 +30,7 @@
                                     <input type="text" name="name" class="form-control" placeholder="Masukkan Nama"
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <button class="btn btn-outline-secondary" type="submit"
-                                        id="button-addon2">Cari</button>
+                                        id="button-addon2">Search</button>
                                 </div>
                             </div>
                         </div>
@@ -63,12 +67,12 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>
-                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
-                                                <i class="fa-solid fa-money-bill"></i>
-                                            </a>
-                                            <!-- <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary">
+                                            <!-- <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary {{ $paymentInfo[$item->id] ? 'disabled' : '' }}">
                                                 <i class="fa-solid fa-money-bill"></i>
                                             </a> -->
+                                            <a href="/customers/log/{{ $item->id }}" class="btn my-1 btn-sm btn-primary">
+                                                <i class="fa-solid fa-money-bill"></i>
+                                            </a>
                                             <a href="/customers/{{ $item->id }}" class="btn my-1 btn-sm btn-success">
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>

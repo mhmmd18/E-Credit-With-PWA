@@ -11,19 +11,18 @@
                             <div class="col-12 col-md-6 py-2">
                                 <select name="address" class="form-control">
                                     <option value="" selected hidden>-- Pilih Alamat --</option>
-                                    <option style="font-size: 12px" value="Bakalan" {{ old('address') == 'Bakalan' ? 'selected' : '' }}>Bakalan
-                                    </option>
-                                    <option style="font-size: 12px" value="Babatan" {{ old('address') == 'Babatan' ? 'selected' : '' }}>Babatan
-                                    </option>
-                                    <option style="font-size: 12px" value="Lojok" {{ old('address') == 'Lojok' ? 'selected' : '' }}>Lojok</option>
-                                    <option style="font-size: 12px" value="Petung" {{ old('address') == 'Petung' ? 'selected' : '' }}>Petung
-                                    </option>
-                                    <option style="font-size: 12px" value="Buaran" {{ old('address') == 'Buaran' ? 'selected' : '' }}>Buaran
-                                    </option>
-                                    <option style="font-size: 12px" value="Lajuk" {{ old('address') == 'Lajuk' ? 'selected' : '' }}>Lajuk</option>
-                                    <option style="font-size: 12px" value="Jajar" {{ old('address') == 'Jajar' ? 'selected' : '' }}>Jajar</option>
-                                    <option style="font-size: 12px" value="Lainnya" {{ old('address') == 'Lainnya' ? 'selected' : '' }}>Lainnya
-                                    </option>
+                                    <option style="font-size: 12px" value="Petung">Petung</option>
+                                    <option style="font-size: 12px" value="Buaran">Buaran</option>
+                                    <option style="font-size: 12px" value="Bakalan">Bakalan</option>
+                                    <option style="font-size: 12px" value="Lojok">Lojok</option>
+                                    <option style="font-size: 12px" value="Babatan">Babatan</option>
+                                    <option style="font-size: 12px" value="Lajuk">Lajuk</option>
+                                    <option style="font-size: 12px" value="Jajar">Jajar</option>
+                                    <option style="font-size: 12px" value="Wirogunan">Wirogunan</option>
+                                    <option style="font-size: 12px" value="Tegal Bero">Tegal Bero</option>
+                                    <option style="font-size: 12px" value="Doro Payung">Doro Payung</option>
+                                    <option style="font-size: 12px" value="Bandaran">Bandaran</option>
+                                    <option style="font-size: 12px" value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6 py-2">
@@ -31,7 +30,7 @@
                                     <input type="text" name="name" class="form-control" placeholder="Masukkan Nama"
                                         aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <button class="btn btn-outline-secondary" type="submit"
-                                        id="button-addon2">Cari</button>
+                                        id="button-addon2">Search</button>
                                 </div>
                             </div>
                         </div>

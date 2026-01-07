@@ -89,7 +89,7 @@ class UserController extends Controller
             $rules['username'] = 'required|unique:users';
         }
         // cek validasi
-        $validatedData = $request->validate($rules, $messages);
+        $validatedData = $request->validate($rules);
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::where('id', $user->id)
             ->update($validatedData);

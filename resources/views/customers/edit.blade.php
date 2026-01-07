@@ -45,13 +45,17 @@
                             <select name="address" id="address"
                                 class="form-control @error('address') is-invalid @enderror" required>
                                 <option value="" selected hidden>-- Pilih Alamat --</option>
-                                <option style="font-size: 12px" value="Bakalan" {{ old('address', $customer->address) == 'Bakalan' ? "selected" : "" }}>Bakalan</option>
-                                <option style="font-size: 12px" value="Babatan" {{ old('address', $customer->address) == 'Babatan' ? "selected" : "" }}>Babatan</option>
-                                <option style="font-size: 12px" value="Lojok" {{ old('address', $customer->address) == 'Lojok' ? "selected" : "" }}>Lojok</option>
                                 <option style="font-size: 12px" value="Petung" {{ old('address', $customer->address) == 'Petung' ? "selected" : "" }}>Petung</option>
                                 <option style="font-size: 12px" value="Buaran" {{ old('address', $customer->address) == 'Buaran' ? "selected" : "" }}>Buaran</option>
+                                <option style="font-size: 12px" value="Bakalan" {{ old('address', $customer->address) == 'Bakalan' ? "selected" : "" }}>Bakalan</option>
+                                <option style="font-size: 12px" value="Lojok" {{ old('address', $customer->address) == 'Lojok' ? "selected" : "" }}>Lojok</option>
+                                <option style="font-size: 12px" value="Babatan" {{ old('address', $customer->address) == 'Babatan' ? "selected" : "" }}>Babatan</option>
                                 <option style="font-size: 12px" value="Lajuk" {{ old('address', $customer->address) == 'Lajuk' ? "selected" : "" }}>Lajuk</option>
                                 <option style="font-size: 12px" value="Jajar" {{ old('address', $customer->address) == 'Jajar' ? "selected" : "" }}>Jajar</option>
+                                <option style="font-size: 12px" value="Wirogunan" {{ old('address', $customer->address) == 'Wirogunan' ? "selected" : "" }}>Wirogunan</option>
+                                <option style="font-size: 12px" value="Tegal Bero" {{ old('address', $customer->address) == 'Tegal Bero' ? "selected" : "" }}>Tegal Bero</option>
+                                <option style="font-size: 12px" value="Doro Payung" {{ old('address', $customer->address) == 'Doro Payung' ? "selected" : "" }}>Doro Payung</option>
+                                <option style="font-size: 12px" value="Bandaran" {{ old('address', $customer->address) == 'Bandaran' ? "selected" : "" }}>Bandaran</option>
                                 <option style="font-size: 12px" value="Lainnya" {{ old('address', $customer->address) == 'Lainnya' ? "selected" : "" }}>Lainnya</option>
                             </select>
                             @error('address')

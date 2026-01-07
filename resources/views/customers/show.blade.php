@@ -65,15 +65,7 @@
                                 <th>Sisa Hutang</th>
                                 <td>:</td>
                                 <td>
-                                    <?php
-                                    $totalDebt = 0;
-
-                                    foreach ($logs as $item) {
-                                        $totalDebt += $item->credit;
-                                    }
-                                    
-                                    ?>
-                                    Rp. {{ str_replace(',', '.', number_format($customer->debt - $totalDebt, 0)) }}
+                                    Rp. {{ str_replace(',', '.', number_format($customer->debt - $totalCicilan, 0)) }}
                                 </td>
                             </tr>
 
@@ -117,7 +109,7 @@
                         <form action="" class="col-12 col-md-6 py-2">
                             <div class="input-group">
                                 <input type="date" name="date" class="form-control" aria-label="Recipient's date" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Cari</button>
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
                             </div>
                         </form>   
                         <x-logs-table :catatan='$logs' :totalCicilan='$totalCicilan' />
